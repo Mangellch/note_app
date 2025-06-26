@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}App Notes{% endblock title %}</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configuración personalizada para tonos rosado y morado -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ec4899', // rosa
+            secondary: '#c084fc', // morado pastel
+            soft: '#fdf2f8', // rosita muy suave
+            darkPurple: '#6b21a8',
+          },
+          fontFamily: {
+            fancy: ['"Comic Neue"', 'cursive'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Fuente opcional cute -->
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-soft text-gray-800 min-h-screen font-fancy flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-primary text-white p-6 shadow-md">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-bold">📒 Mis Notas</h1>
+      <p class="text-sm">Organiza tus ideas💖</p>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="container mx-auto flex-grow py-10 px-4">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-secondary text-white text-center p-4 text-sm">
+    &copy; 2025 - App Notes con dulzura 🍓
+  </footer>
+
+</body>
+</html>

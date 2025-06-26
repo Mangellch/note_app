@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Mis Notitas{% endblock %}
+{% block content %}
+
+<h2 class="text-2xl font-bold mb-6 text-primary">📒 Tus notas</h2>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div id="flash-messages" class="mb-4">
+      {% for category, message in messages %}
+        <p class="text-center
+          {% if category == 'success' %}
+            text-green-600
+          {% elif category == 'error' %}
+            text-red-600
+          {% else %}
+            text-gray-600
+          {% endif %}
+        ">
+          {{ message }}
+        </p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+{% if notes %}
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {% for note in notes %}
+      <div class="bg-white shadow-lg rounded-xl p-6 flex flex-col">
+        <h3 class="text-lg font-semibold text-darkPurple mb-2">{{ note.title }}</h3>
+        <p class="text-sm text-gray-700 flex-grow">{{ note.content }}</p>
+        <small class="text-gray-400 mt-4">
+          Creada el: {{ note.created_at.strftime('%d/%m/%Y') }}
+        </small>
+
+        <div class="mt-4 flex justify-end gap-2">
+          <a href="{{ url_for('notes.edit_note', id=note.id) }}"
+             class="btn btn-sm bg-secondary hover:bg-darkPurple text-white rounded px-3 py-1">
+             ✏️ Editar
+          </a>
+
+          <form action="{{ url_for('notes.del_note', id=note.id) }}" method="POST">
+            <button type="submit"
+              class="btn btn-sm bg-red-400 hover:bg-red-600 text-white rounded px-3 py-1">
+              🗑️ Eliminar
+            </button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No hay notas disponibles</p>
+{% endif %}
+
+<a href="{{ url_for('notes.create_note') }}"
+   class="mt-6 inline-block bg-primary hover:bg-darkPurple text-white px-6 py-3 rounded-lg">
+  ➕ Crear nueva nota
+</a>
+
+{% endblock %}
