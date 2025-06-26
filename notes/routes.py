@@ -5,12 +5,13 @@ notes_bp = Blueprint('notes', __name__)
 
 @notes_bp.route('/')
 def home():
-    if 'user ' not in session:
+    if 'user' not in session:               
         flash("Por favor, inicia sesión para ver las notas.", "error")
         return redirect(url_for('auth.login'))
     
     notes = Note.query.all()
     return render_template('home.html', notes=notes)
+
 
 @notes_bp.route('/crear-nota', methods=['GET', 'POST'])
 def create_note():
