@@ -36,11 +36,16 @@
         </button>
       </form>
 
-      <p class="text-center text-sm text-gray-600 mt-4">
-        ¿No tienes cuenta?
-        <a href="{{ url_for('notes.create_note') }}"
-           class="text-fuchsia-600 hover:underline">¡Crea una nota!</a>
-      </p>
+      <!-- Enlaces adicionales -->
+    <!-- Enlaces adicionales -->
+    <div class="mt-4 text-center space-y-2">
+      <a href="{{ url_for('auth.forgot_password') }}" class="text-sm text-fuchsia-500 hover:underline">
+        ¿Olvidaste tu contraseña?
+      </a>
+      <br>
+      <a href="{{ url_for('auth.register') }}" class="text-sm text-fuchsia-500 hover:underline">
+        ¡Regístrate aquí!
+      </a>
     </div>
   </div>
 {% endblock %}
