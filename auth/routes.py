@@ -1,6 +1,6 @@
 import re
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session, current_app
-from extensions import db, mail                    # <— usa las mismas instancias
+from extensions import db, mail
 from models import User
 from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer
@@ -8,7 +8,6 @@ from sqlalchemy import func
 
 auth_bp = Blueprint('auth', __name__)
 
-# --- Login con admin/root ---
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -31,15 +30,15 @@ def login():
 
         flash('Usuario o contraseña incorrectos', 'error')
         return redirect(url_for('auth.login'))
-    return render_template('login.html')
 
+    return render_template('login.html')
 
 @auth_bp.route('/logout')
 def logout():
+    session.pop('user_id', None)
     session.pop('user', None)
     flash('Sesión cerrada exitosamente', 'success')
     return redirect(url_for('auth.login'))
-
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -67,6 +66,7 @@ def register():
 
         flash("¡Cuenta creada! Inicia sesión por favor 😊", "success")
         return redirect(url_for('auth.login'))
+
     return render_template('register.html')
 
 
